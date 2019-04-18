@@ -22,7 +22,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class HangmanMain extends Application {
-	// To implement: When duplicate letter is entered no life reduction takes place.
 
 	public String[] wordArray = { "Hello", "India", "Trump", "Obama", "Duck", "Goose", "Holy", "Trinity", "Potter",
 			"Faith", "theme", "song", "Rover", "time", "ardent", "always", "wither", "miss", "Friends", "Love", "Happy",
@@ -44,15 +43,10 @@ public class HangmanMain extends Application {
 	private Text wordTxt = new Text();
 	private Text resultText = new Text();
 	public String finalWord = "";
-	private String containText = "";
 
 	BorderPane mainPane;
 	BorderPane bp;
 	BorderPane bp1;
-
-	public String getWord() {
-		return word;
-	}
 
 	public void setLife(int life) {
 		this.lifeCounter = life;
@@ -62,17 +56,22 @@ public class HangmanMain extends Application {
 		return lifeCounter;
 	}
 
-	// This is the method that returns the wrong value for JUnit test.
-	public String getDashes() {
+	// Methods written for the sake of testing
+	/*public String getWord() {
+		return word;
+	}
+	
+	public void setWord(String word) {
+		this.word = word;
+	}
+*/
+	// This is the method that returns the wrong value for JUnit test and also the method that generates the dashes for guessing
+	private String getDashes() {
 		String dashes = "";
 		for (int i = 0; i < word.length(); i++) {
 			dashes += "-";
 		}
 		return dashes;
-	}
-
-	public void setWord(String word) {
-		this.word = word;
 	}
 
 	@Override
@@ -123,7 +122,6 @@ public class HangmanMain extends Application {
 		textBox.setOnKeyReleased(event -> {
 			if (event.getCode() == KeyCode.ENTER) {
 				inputText = textBox.getText();
-				containText += inputText;
 				containsLetter(inputText);
 				livesLeft.setText("Remaining Lives: " + lifeCounter);
 				textBox.setText("");
@@ -190,7 +188,6 @@ public class HangmanMain extends Application {
 
 	// displays whether the player has won or lost
 	// This is an important method but has not been used in program to prevent errors during testing
-	@SuppressWarnings("unused")
 	private void displayEndMessage() {
 		if (winOrLose == true) {
 			winMessage = new Alert(AlertType.INFORMATION);
@@ -232,7 +229,7 @@ public class HangmanMain extends Application {
 	}
 
 	// convert array to string
-	public String toString(String[] a) {
+	private String toString(String[] a) {
 		String s = "";
 		for (int i = 0; i < a.length; i++) {
 			if (a[i] == null) {
@@ -247,24 +244,20 @@ public class HangmanMain extends Application {
 	public void checkIfGameOver() {
 		if (word.equals(finalWord) && lifeCounter > 0) {
 			winOrLose = true;
-// This is used to display to the user whether you have won or lost but has been commented out for testing
-//			displayEndMessage();
+			// This is used to display to the user whether you have won or lost but has been commented out for testing
+			displayEndMessage();
 		} else if (lifeCounter == 0) {
 			winOrLose = false;
-// This is used to display to the user whether you have won or lost but has been commented out for testing
-//			displayEndMessage();
+			// This is used to display to the user whether you have won or lost but has been commented out for testing
+			displayEndMessage();
 		}
 	}
 
-	// For testing's sake
-	public String getFinalWord() {
-		return finalWord;
-	}
-
-	public void setFinalWord(String finalWord) {
-		this.finalWord = finalWord;
-	}
-
+	// For testing's sake Not used in actual program
+/*	  public String getFinalWord() { return finalWord; }
+	  
+	  public void setFinalWord(String finalWord) { this.finalWord = finalWord; }
+*/	 
 	public static void main(String[] args) {
 		launch(args);
 	}

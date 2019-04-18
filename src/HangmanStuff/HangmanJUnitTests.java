@@ -9,7 +9,7 @@ class HangmanJUnitTests {
 	// This test is used to check whether the correct life is set based on
 	// difficulty level.
 	@Test
-	void testSetAndGetLife() {
+	void lifeTest() {
 		HangmanMain hm = new HangmanMain();
 		hm.setLife(12);
 		assertEquals(12, hm.getLife());

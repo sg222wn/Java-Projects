@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 
 public class MainMenu extends Application {
 	Button startButton;
+	Button instructionsButton;
 	Button exitButton;
 	final Alert confirmation = new Alert(AlertType.CONFIRMATION);
 	Stage secondaryStage = new Stage();
@@ -56,6 +57,29 @@ public class MainMenu extends Application {
 
 		startButton.addEventHandler(MouseEvent.MOUSE_CLICKED, clickStart);
 
+		instructionsButton = new Button();
+		instructionsButton.setText("INSTRUCTIONS");
+		instructionsButton.setTextFill(Color.RED);
+		instructionsButton.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+
+		EventHandler<MouseEvent> clickInstructions= new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Instructions in = new Instructions();
+				try {
+					in.start(secondaryStage);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// close the main menu window
+				primaryStage.hide();
+			}
+		};
+
+		instructionsButton.addEventHandler(MouseEvent.MOUSE_CLICKED, clickInstructions);
+
+		
 		exitButton = new Button();
 		exitButton.setText("EXIT GAME");
 		exitButton.setTextFill(Color.RED);
@@ -75,6 +99,8 @@ public class MainMenu extends Application {
 
 		startButton.setScaleX(1.5);
 		startButton.setScaleY(1.5);
+		instructionsButton.setScaleX(1.5);
+		instructionsButton.setScaleY(1.5);
 		exitButton.setScaleX(1.5);
 		exitButton.setScaleY(1.5);
 
@@ -87,7 +113,7 @@ public class MainMenu extends Application {
 				new FileInputStream("C:/Users/HP/Downloads/Images/HangManGame/HangManGameTitle-Edited.jpg"));
 		selectedImage.setImage(titleImage);
 
-		root.getChildren().addAll(startButton, exitButton);
+		root.getChildren().addAll(startButton,instructionsButton, exitButton);
 		root.setBackground(
 				new Background(new BackgroundImage(titleImage, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
 						BackgroundPosition.CENTER, new BackgroundSize(768, 1366, false, false, true, false))));
